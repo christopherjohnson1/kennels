@@ -1,13 +1,13 @@
 import React from "react"
 import "./Kennel.css"
-import { Employee } from "./employee/Employee"
-import { Customer } from "./customer/Customer"
+import { CustomerList } from "./customer/CustomerList"
 import { LocationProvider } from "./location/LocationProvider"
 import { LocationList } from "./location/LocationList"
 import { AnimalProvider } from "./animal/AnimalProvider"
 import { AnimalList } from "./animal/AnimalList"
 import { EmployeeProvider } from "./employee/EmployeeProvider"
 import { EmployeeList } from "./employee/EmployeeList"
+import { CustomerProvider } from "./customer/CustomerProvider"
 
 export const Kennel = () => (
     <>
@@ -41,10 +41,9 @@ export const Kennel = () => (
 
         <h2>Customers</h2>
         <article className="customers">
-            <Customer />
-            <Customer />
-            <Customer />
-            <Customer />
+            <CustomerProvider>
+                <CustomerList />
+            </CustomerProvider>
         </article>
     </>
 )
