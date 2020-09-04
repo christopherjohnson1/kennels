@@ -1,29 +1,32 @@
 import React, { useContext, useEffect } from "react"
 import { EmployeeContext } from "./EmployeeProvider"
+import { LocationContext } from "../location/LocationProvider"
+import { Employee } from "./Employee"
 import "./Employee.css"
 
-export const EmployeeList = () => {
+export const EmployeeList = (props) => {
     const {employees, getEmployees} = useContext(EmployeeContext)
+    const { locations, getLocations } = useContext(LocationContext)
 
     useEffect(() => {
-        console.log(" **** Locations before state pulled from API ****")
         getEmployees()
+        getLocations()
     }, [])
 
-    useEffect(() => {
-        console.log(" **** Locations after state pulled from API ****")
-    }, [employees])
-
     return (
-        <article className="employees">
+        <div className="employees">
+            <h1>Employees</h1>
+            <button onClick={() => props.history.push("/employees/create")}>
+                Add Employee
+            </button>
+        <article className="employeeList">
             {
                 employees.map(employee => {
-                    return <section key={employee.id} className="employee">
-                        <div><h3>{ employee.name }</h3></div>
-                        <div>Position: { employee.position }</div>
-                    </section>
+                    const location = locations.find(l => l.id === employee.locationId) || {}
+                    return <Employee key={employee.id} employee={employee} location={location} />
                 })
             }
         </article>
+        </div>
     )
 }
