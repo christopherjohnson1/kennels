@@ -4,27 +4,39 @@ import Animal from "./Animal"
 import "./Animals.css"
 
 export const AnimalList = ({ history }) => {
-    const { getAnimals, animals } = useContext(AnimalContext)
+    const { getAnimals, animals, searchTerms } = useContext(AnimalContext)
+
+    const [ filteredAnimals, setFiltered ] = useState([])
 
     // Initialization effect hook -> Go get animal data
-    useEffect(()=>{
+    useEffect(() => {
         getAnimals()
     }, [])
 
+    useEffect(() => {
+       const matchingAnimals = animals.filter(animal => animal.name.toLowerCase().includes(searchTerms.toLowerCase()))
+       setFiltered(matchingAnimals)
+    }, [searchTerms])
+
+
+    useEffect(() => {
+       setFiltered(animals)
+    }, [animals])
+
     return (
-        <>
+        <main className="animalContainer">
             <h1>Animals</h1>
 
             <button onClick={() => history.push("/animals/create")}>
                 Make Reservation
-            </button>
+                </button>
             <div className="animals">
                 {
-                    animals.map(animal => {
+                    filteredAnimals.map(animal => {
                         return <Animal key={animal.id} animal={animal} />
                     })
                 }
             </div>
-        </>
+        </main>
     )
 }
