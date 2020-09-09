@@ -1,25 +1,20 @@
 import React, { useContext, useEffect } from "react"
-import { LocationContext } from "./LocationProvider"
-import "./Location.css"
+import { LocationContext } from "./LocationProvider";
+import "./Locations.css"
 
 export const LocationList = () => {
-    const {locations, getLocations} = useContext(LocationContext)
+    const { locations, getLocations } = useContext(LocationContext)
 
     useEffect(() => {
-        console.log(" **** Locations before state pulled from API ****")
         getLocations()
     }, [])
-
-    useEffect(() => {
-        console.log(" **** Locations after state pulled from API ****")
-    }, [locations])
 
     return (
         <article className="locations">
             {
                 locations.map(location => {
                     return <section key={location.id} className="location">
-                        <div><h3>{ location.name }</h3></div>
+                        <div><h3>{location.name}</h3></div>
                         <div>{location.address}</div>
                     </section>
                 })
