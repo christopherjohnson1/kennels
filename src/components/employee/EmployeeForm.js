@@ -1,11 +1,10 @@
-  
 import React, { useContext, useRef, useEffect } from "react"
 import { EmployeeContext } from "./EmployeeProvider"
 import { LocationContext } from "../location/LocationProvider"
 import { AnimalContext } from "../animal/AnimalProvider"
-import "./Employee.css"
+import "./Employees.css"
 
-export const EmployeeForm = (props) => {
+export const EmployeeForm = (burrito) => {
     const { addEmployee } = useContext(EmployeeContext)
     const { locations, getLocations } = useContext(LocationContext)
     const { animals, getAnimals } = useContext(AnimalContext)
@@ -46,7 +45,7 @@ export const EmployeeForm = (props) => {
                 locationId,
                 animalId
             })
-            .then(() => props.history.push("/employees"))
+            .then(() => burrito.history.push("/employees"))
         }
     }
 
